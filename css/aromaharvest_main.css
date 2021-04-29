@@ -650,12 +650,8 @@
 #index_entrance #ckeditor img{
     height: initial;
 }
-.entrance_banner{
-    display: flex;
-}
 .entrance_banner figure{
     margin-bottom: 0;
-    width: 50%;
 }
 .entrance_banner figure img{
     width: 100%;
@@ -663,53 +659,16 @@
     object-fit: cover;
     object-position: left bottom;
 }
-.entrance_banner .banner_box{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-content:center;
-    width: 50%;
-    background: #C3986A99;
-    color: #fff;
-    text-align: center;
-    padding: 65px;
+.entrance_banner img.mb{
+    display: none;
 }
-.entrance_banner h1{
-    font-size: 35px;
-    letter-spacing: 5px;
-    font-weight: normal;
-    width: 100%;
-    border-bottom: solid 1px #fff;
-    padding-bottom: 5px;
-    margin-bottom: 40px;
-}
-.entrance_banner h2{
-    font-size: 22px;
-    letter-spacing: 3px;
-    font-weight: 300;
-    line-height: 1.8;
-    margin-bottom: 0;
-}
-@media screen and (max-width: 992px){
-    .entrance_banner .banner_box{
-        padding: 30px 20px;
+
+@media screen and (max-width:768px){
+    .entrance_banner img.pc{
+        display: none;
     }
-    .entrance_banner h1{
-        margin-bottom: 20px;
-    }
-    .entrance_banner h2{
-        font-size: 16px;
-    }
-}
-@media screen and (max-width: 768px){
-    .entrance_banner{
-        flex-wrap: wrap;
-    }
-    .entrance_banner figure{
-        width: 100%;
-    }
-    .entrance_banner .banner_box{
-        width: 100%;
+    .entrance_banner img.mb{
+        display: block;
     }
 }
 
@@ -720,11 +679,10 @@
 .entrance_video_block .video_box{
     display: inline-block;
     width: 25%;
-    background: #DBC1A6;
-    padding: 0 15px 20px;
     text-decoration: none;
 }
 .entrance_video_block .video_box{
+    position: relative;
     margin-right: 20px;
 }
 .entrance_video_block .video_box:nth-last-child(1){
@@ -732,32 +690,28 @@
 }
 .video_box .video_cover{
     position: relative;
+    margin-bottom: 0;
 }
 .video_box .video_cover .img{
     width: 100%;
 }
 .video_box .video_title{
+    position: absolute;
+    width: 100%;
+    left: 0;
+    bottom: 0;
     font-weight: 300;
     color: #fff;
-    font-size: 22px;
+    font-size: 18px;
     text-align: center;
-    margin-top: 25px;
-    margin-bottom: 0;
+    padding: 10px;
+    background: url("https://cdn.cybassets.com/s/files/8869/theme/57729/assets/movie_t.png?20210429") center no-repeat;
 }
 .video_box .btn_play{
     position: absolute;
-    bottom: -30px;
+    top: 50%;
     left: 50%;
-    transform: translateX(-50%);
-}
-.video_box .btn_play.hover{
-    display: none;
-}
-.entrance_video_block .video_box:hover .btn_play{
-    display: none;
-}
-.entrance_video_block .video_box:hover .btn_play.hover{
-    display: block;
+    transform: translate(-50%,-50%);
 }
 @media screen and (max-width: 992px){
     .video_box .video_title{
@@ -841,7 +795,7 @@
 .entrance_guild_block{
     background: #DBC1A64D;
     padding-top: 65px;
-    padding-bottom: 40px;
+    padding-bottom: 80px;
 }
 .entrance_guild_block .guild_block{
     display: flex;
@@ -890,6 +844,9 @@
     }
 }
 @media screen and (max-width: 768px){
+    .entrance_guild_block{
+        padding-bottom: 45px;
+    }
     .entrance_guild_block h3{
         width: auto;
         font-size: 22px;
@@ -1020,6 +977,65 @@
     }
     .useful_box .user_box{
         margin-top: 80px;
+    }
+}
+.entrance_review_block{
+    margin: 60px auto;
+}
+.entrance_review_block h3{
+    font-size: 30px;
+    letter-spacing: 3px;
+    text-align: center;
+    color: #fff;
+    font-weight: 300;
+    background: #DBC1A6;
+    width: 580px;
+    padding: 10px;
+    margin: 0 auto 30px;
+}
+.review_block{
+    display: flex;
+}
+.review_block .review_box{
+    position: relative;
+    width: calc(100% / 6);
+}
+.review_box figure{
+    margin-bottom: 0;
+}
+.review_box figure img{
+    width: 100%;
+}
+.review_box h4{
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 400;
+    margin-bottom: 5%;
+    padding: 0 5%;
+    text-shadow: 0 0 20px rgb(0 0 0 / 90%);
+}
+@media screen and (max-width:992px){
+    .review_block{
+        flex-wrap: wrap;
+    }
+    .review_block .review_box{
+        width: calc(100% / 3);
+    }
+}
+@media screen and (max-width: 768px){
+    .entrance_review_block h3 {
+        width: auto;
+        font-size: 22px;
+    }
+}
+@media screen and (max-width:576px){
+    .review_block .review_box{
+        width: calc(100% / 2);
     }
 }
 
