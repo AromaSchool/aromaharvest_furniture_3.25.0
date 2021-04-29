@@ -1,0 +1,183 @@
+{% assign is_displayed = product_group | append: '_display' %}
+
+{% if settings[is_displayed] %}
+  {% assign swiper_title = product_group | append: '_title' %}
+  {% assign swiper_collection = product_group | append: '_collection' %}
+  {% assign swiper_collection_name = settings[swiper_collection] %}
+  {% assign swiper_limit = product_group | append: '_limit' %}
+  {% assign swiper_products = collections[swiper_collection_name].products | first: settings[swiper_limit] | price_with_discount %}
+
+  <div id="swiper_products">
+    <div class="container">
+      <div class="section-heading">
+        <h2>{{ settings[swiper_title] }}</h2>
+        <hr>
+      </div>
+      <div class="swiper-container swiper_products GTM-area">
+        <div class="swiper-bar">
+          <div class="swiper-button swiper-button-prev"></div>
+          <div class="swiper-button swiper-button-next"></div>
+        </div>
+        <div class="swiper-wrapper">
+          {% for swiper_product in swiper_products %}
+            {% assign variant = swiper_product.first_variant %}
+            {% assign product_price = swiper_product.price %}
+            <div class="swiper-slide">
+              {% product_tag variant: variant, product: swiper_product %}
+                <div class="product_image relative">
+                  <a class="productClick img-flex GTM-info swiper-lazy"
+                    href="{{ swiper_product.url }}"
+                    data-brand="{{ swiper_product.vendor | escape }}"
+                    data-category="{{ swiper_product.product_type | escape }}"
+                    data-collection_id="{{swiper_product.collection_id}}"
+                    data-id="{{ swiper_product.id }}"
+                    data-list="{{session_title}}"
+                    data-name="{{ swiper_product.title | escape }}"
+                    data-position="{{ forloop.index }}"
+                    data-price="{{ product_price }}"
+                    data-background="{{ swiper_product.featured_image | product_img_url: 'grande' }}">
+                  </a>
+                  <div class="swiper-lazy-preloader"></div>
+                </div>
+                {% if settings.product_slogan_display %}
+                  <div class="product_slogan"{% unless swiper_product.slogan == '' %} style="background: #f9f9f9;"{% endunless %}>
+                    <span>{{ swiper_product.slogan }}</span>
+                  </div>
+                {% endif %}
+                <div class="caption">
+                  <div class="product_title">
+                    <a href="{{ swiper_product.url }}" class="swiper_title">{{ swiper_product.title }}</a>
+                  </div>
+                  {% if settings.display_product_total_sold %}
+                    <div class="product_sold">已銷售：{{ swiper_product.total_sold }}</div>
+                  {% else %}
+                    <div class="product_sold"></div>
+                  {% endif %}
+                  <div class="product_price">
+                    {% if variant.compare_at_price > variant.price %}
+                      <del class="compare_at_price">{{ variant.compare_at_price | money }}</del>
+                      <ins class="delete">{{ variant.price | money }}</ins>
+                    {% else %}
+                      <ins>{{ variant.price | money }}</ins>
+                    {% endif %}
+                  </div>
+                  {% if shop.cart_enabled %}
+                    <div class="product_btn">
+                      {% if swiper_product.variants.size > 0 %}
+                        <button type="button" class="btn-cart" data-toggle="modal" data-target="#addcart-Modal"
+                          data-brand="{{ swiper_product.vendor | escape }}"
+                          data-handle="{{ swiper_product.handle }}"
+                          data-collection="{{ swiper_product.collections[0].id }}"
+                          data-category="{{ swiper_product.product_type | escape }}"
+                          data-collection_id="{{swiper_product.collection_id}}"
+                          data-id="{{ swiper_product.id }}"
+                          data-list="{{session_title}}"
+                          data-name="{{ swiper_product.title | escape }}"
+                          data-photo="{{ swiper_product.featured_image | product_img_url: 'grande' }}"
+                          data-price="{{ swiper_product.price }}"
+                          data-position="{{ forloop.index }}"
+                          data-spread-size="{{ swiper_product.variants_info }}"
+                          data-cid="{{ swiper_product.collections[0].id }}"
+                          data-cname="{{ swiper_product.collections[0].class_name}}"
+                          data-sku="{{ variant.sku}}">
+                          <span class="text">加入購物車</span>
+                        </button>
+                      {% else %}
+                        <button type="button" class="btn-cart btn-soldout">
+                          <span class="text">已售完</span>
+                        </button>
+                      {% endif %}
+                    </div>
+                  {% endif %}
+                </div>
+              {% endproduct_tag %}
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+  {{ 'css/beta_theme/swiper_product.css' | asset_url | stylesheet_tag }}
+  {{ 'css/swiper_product_custom.css' | asset_url | stylesheet_tag }}
+  <script>
+    $(document).ready(function(){
+      var slideCount = $(".swiper_products .swiper-slide").length
+      if (slideCount >= 4){
+        var autoLoop = true
+      }else{
+        var autoLoop = false
+      }
+      var SwiperProducts = new Swiper('#swiper_products .swiper_products', {
+        // Disable preloading of all images
+        preloadImages: false,
+        // Enable lazy loading
+        lazy: true,
+        loop: autoLoop,
+        slidesPerView: 4,
+        slidesPerGroup: 2,
+        spaceBetween: 40,
+        speed: 1500,
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
+        },
+        breakpoints: {
+          991: {
+            slidesPerView: 3,
+            slidesPerGroup: 3,
+            spaceBetween: 25,
+          },
+          767: {
+            slidesPerView: 2,
+            slidesPerGroup: 2,
+            spaceBetween: 10,
+          },
+          480: {
+            slidesPerView: 2,
+            slidesPerGroup: 2,
+            spaceBetween: 5,
+          }
+        }
+      });
+      // for GTM
+      $.each($('.GTM-area'),function(){
+        var gtm_product = []
+        $.each($(this).find('.GTM-info'),function(index,product){
+          productInfo = {
+            'brand':    $(product).data('brand'),
+            'category': $(product).data('category'),
+            'id':       $ (product).data('id'),
+            'list':     'Collection: '+ $(product).data('list'),
+            'name':     $(product).data('name'),
+            'position': $(product).data('position'),
+            'price':    $ (product).data('price'),
+            'variant':  ''
+          }
+          if(typeof google_analytics_id != "undefined" && window.enable_ga_ee == true){
+            ga('ec:addImpression', productInfo);
+          }
+          if(typeof google_tag_manager_id != 'undefined' || typeof cyb != 'undefined'){
+            gtm_product.push(productInfo)
+          }
+        })
+        if(typeof google_analytics_id != 'undefined' && window.enable_ga_ee == true){
+            ga('send', 'event', {'nonInteraction': true});
+        }
+        if(typeof google_tag_manager_id != 'undefined' && gtm_product.length > 0){
+          dataLayer.push({
+            'event': 'productImpressions',
+            'ecommerce':{
+              'impressions': gtm_product
+            }
+          });
+        }
+        if(typeof cyb != "undefined" && gtm_product.length > 0){
+          cyb.push({
+            'event': 'productImpressions',
+            'impressions': gtm_product
+          });
+        }
+      })
+    })
+  </script>
+{% endif %}

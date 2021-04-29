@@ -1,0 +1,90 @@
+{% assign is_displayed = product_group | append: '_display' %}
+
+{% if settings[is_displayed] %}
+  {% assign item_title = product_group | append: '_title' %}
+  {% assign item_collection_name = product_group | append: '_collection_name' %}
+  {% assign item_limit = product_group | append: '_limit' %}
+  {% assign item_collection_name = settings[item_collection_name] %}
+  {{ 'css/index_products_custom.css' | asset_url | stylesheet_tag }}
+
+  <section class="home-products products-warp" id="home-products">
+    <div class="container">
+      <div class="section-heading">
+        <h2>{{ settings[item_title] }}</h2>
+        <hr>
+      </div>
+      {% if collections[item_collection_name].products.size > 0 %}
+      <div class="products row">
+        {% assign products = collections[item_collection_name].products | first: settings[item_limit] | price_with_discount %}
+        {% for product in products %}
+        <div class="col-lg-3 col-md-4 col-6">
+          <div class="product-col">
+            {% assign variant = product.first_variant %}
+            {% product_tag variant: variant, product: product %}
+              <div class="image">
+                {% if variant.compare_at_price > variant.price %}
+                  {% if settings.display_discount_price_slogan %}
+                    <div class="tag-meta">
+                      <span class="tag-text">{{ settings.discount_price_slogan }}</span>
+                    </div>
+                  {% endif %}
+                {% endif %}
+                <a class="bg-lazy" href="{{ product.url }}" title="{{ product.title }}" data-bg="url('{{ product.featured_image | product_img_url: 'grande' }}')"></a>
+              </div>
+              {% if settings.product_slogan_display %}
+                <div class="product_slogan"{% unless product.slogan == '' %} style="background: #f9f9f9;"{% endunless %}>
+                  <span>{{ product.slogan }}</span>
+                </div>
+              {% endif %}
+              <div class="caption">
+                <h4 class="title"><a href="{{ product.url }}">{{ product.title }}</a></h4>
+                {% if settings.display_product_description_in_window %}
+                  <div class="description">
+                    {{ product.brief | strip_html | limited_string: 30 }}
+                  </div>
+                {% endif %}
+                <div class="price">
+                  {% if variant.compare_at_price > variant.price %}
+                    <del class="compare_at_price">{{ variant.compare_at_price | money }}</del>
+                    <ins class="delete">{{ variant.price | money }}</ins>
+                  {% else %}
+                    <ins>{{ variant.price | money }}</ins>
+                  {% endif %}
+                </div>
+                {% if shop.cart_enabled %}
+                  <div class="cart-button button-group">
+                    {% if product.variants.size > 0 %}
+                      <button type="button" class="btn-cart" data-toggle="modal" data-target="#addcart-Modal"
+                        data-brand="{{ product.vendor | escape }}"
+                        data-handle="{{ product.handle }}"
+                        data-collection="{{ product.collections[0].id }}"
+                        data-category="{{ product.product_type | escape }}"
+                        data-id="{{ product.id }}"
+                        data-list="{{ collection.title | escape }}"
+                        data-name="{{ product.title | escape }}"
+                        data-photo="{{ product.featured_image | product_img_url: 'grande' }}"
+                        data-position="{{ forloop.index }}"
+                        data-price="{{ product.price }}"
+                        data-spread-size="{{ product.variants_info }}"
+                        data-cid="{{ collection.id }}"
+                        data-cname="{{ collection.class_name }}"
+                        data-sku="{{ variant.sku }}">
+                        <span class="text">加入購物車</span>
+                      </button>
+                    {% else %}
+                      <button type="button" class="btn-soldout">
+                        <span class="text">商品已售完</span>
+                      </button>
+                    {% endif %}
+                  </div>
+                {% endif %}
+              </div>
+            {% endproduct_tag %}
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+  </section>
+{% endif %}

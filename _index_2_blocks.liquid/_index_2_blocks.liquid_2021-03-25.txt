@@ -1,0 +1,22 @@
+{% assign block_display = block_name | append: '_display' %}
+{% if settings[block_display] %}
+  {{ 'css/index_2_blocks.css' | asset_url | stylesheet_tag }}
+  {% assign block_title = block_name | append: '_title' %}
+  {% assign block_link1 = block_name | append: '_link_1' %}
+  {% assign block_link2 = block_name | append: '_link_2' %}
+  {% assign block_image1 = 'img/' | append: block_name | append: '_image_1.jpg' %}
+  {% assign block_image2 = 'img/' | append: block_name | append: '_image_2.jpg' %}
+
+  <section id="{{ block_name }}" class="index_2_blocks">
+    <div class="container">
+      <div class="section-heading">
+        <h2>{{ settings[block_title] }}</h2>
+        <hr>
+      </div>
+      <div class="section-blocks">
+        <a class="block-1" href="{{ settings[block_link1] }}"><img class="img-lazy" data-src="{{ block_image1 | asset_url }}"></img></a>
+        <a class="block-2" href="{{ settings[block_link2] }}"><img class="img-lazy" data-src="{{ block_image2 | asset_url }}"></img></a>
+      </div>
+    </div>
+  </section>
+{% endif %}

@@ -1,0 +1,180 @@
+.index_2_blogs {
+  margin-top: 50px;
+  margin-bottom: 50px; }
+  .index_2_blogs .section-heading {
+    position: relative;
+    text-align: center;
+    border: none;
+    padding: 0; }
+    .index_2_blogs .section-heading h2 {
+      display: block;
+      position: relative;
+      padding: 10px 20px;
+      margin-bottom: 0;
+      color: #565656;
+      font-size: 20px; }
+    .index_2_blogs .section-heading hr {
+      display: block;
+      position: relative;
+      left: 0;
+      margin: 0;
+      width: 100%;
+      height: 1px;
+      border-top: none;
+      border-bottom: 2px solid #E2E2E2; }
+      .index_2_blogs .section-heading hr:after {
+        position: absolute;
+        content: '';
+        top: 1px;
+        left: calc(50% - 25px);
+        width: 50px;
+        border-top: 2px solid #A3A3A3; }
+  .index_2_blogs .index-news {
+    display: inline-block;
+    vertical-align: top;
+    padding-right: 20px; }
+    .index_2_blogs .index-news .blogs {
+      border: 2px solid #E2E2E2;
+      border-width: 0 2px 2px;
+      position: relative;
+      padding-top: 0; }
+      .index_2_blogs .index-news .blogs img {
+        width: 100%;
+        height: 100%; }
+      .index_2_blogs .index-news .blogs .btn-link {
+        display: block;
+        position: absolute;
+        width: 100%;
+        text-align: center;
+        top: 75%;
+        left: 0; }
+        .index_2_blogs .index-news .blogs .btn-link a {
+          display: inline-block;
+          padding: 10px 15px;
+          color: #ffffff;
+          border-radius: 5px;
+          border: 2px solid #ffffff;
+          text-decoration: none;
+          box-shadow: 0px 0px 10px rgba(66, 66, 66, 0.329);
+          text-shadow: 0px 0px 10px rgba(66, 66, 66, 0.329); }
+          .index_2_blogs .index-news .blogs .btn-link a:hover {
+            color: #ffffff;
+            border-color: #86919B;
+            background-color: #86919B; }
+  .index_2_blogs .index-blog {
+    display: inline-block;
+    vertical-align: top; }
+    .index_2_blogs .index-blog .blogs {
+      position: absolute;
+      width: calc(100% - 30px);
+      height: calc(100% - 47px);
+      overflow: scroll;
+      padding-top: 15px;
+      border: 2px solid #E2E2E2;
+      border-width: 0 2px 2px; }
+      .index_2_blogs .index-blog .blogs .article {
+        display: grid;
+        display: -ms-grid;
+        grid-template-rows: 2fr 3fr 30px;
+        -ms-grid-rows: 2fr 3fr 30px;
+        grid-template-columns: 1fr 1fr;
+        -ms-grid-columns: 1fr 10px 1fr;
+        grid-column-gap: 10px;
+        width: 100%;
+        height: 185px;
+        margin-bottom: 30px; }
+        .index_2_blogs .index-blog .blogs .article .article_image {
+          grid-area: 1 / 1 / span 3 / span 1;
+          -ms-grid-row: 1;
+          -ms-grid-row-span: 3;
+          -ms-grid-column: 1; }
+          .index_2_blogs .index-blog .blogs .article .article_image a {
+            display: block;
+            width: 100%;
+            height: 100%;
+            background-position: center;
+            background-size: contain;
+            background-repeat: no-repeat; }
+        .index_2_blogs .index-blog .blogs .article .article_title {
+          grid-area: 1 / 2;
+          -ms-grid-row: 1;
+          -ms-grid-column: 3; }
+          .index_2_blogs .index-blog .blogs .article .article_title a {
+            color: #565656;
+            font-size: 16px; }
+        .index_2_blogs .index-blog .blogs .article .article_content {
+          grid-area: 2 / 2;
+          -ms-grid-row: 2;
+          -ms-grid-column: 3; }
+          .index_2_blogs .index-blog .blogs .article .article_content a {
+            color: #A3A3A3;
+            font-size: 15px; }
+        .index_2_blogs .index-blog .blogs .article .article_info {
+          grid-area: 3 / 2;
+          -ms-grid-row: 3;
+          -ms-grid-column: 3;
+          text-align: right; }
+          .index_2_blogs .index-blog .blogs .article .article_info a {
+            color: #33A4E8; }
+  @media (max-width: 991px) {
+    .index_2_blogs .index-blog {
+      margin-top: 25px; }
+      .index_2_blogs .index-blog .blogs {
+        position: relative;
+        width: 100%;
+        height: 535px;
+        overflow: scroll; }
+        .index_2_blogs .index-blog .blogs .article {
+          height: 230px; } }
+  @media (max-width: 767px) {
+    .index_2_blogs .index-news {
+      padding-left: 0px;
+      padding-right: 0px; }
+      .index_2_blogs .index-news .blogs {
+        height: 300px; }
+        .index_2_blogs .index-news .blogs .article {
+          display: grid;
+          grid-template-columns: 80px 1fr;
+          grid-template-rows: 80px;
+          grid-column-gap: 10px; }
+          .index_2_blogs .index-news .blogs .article .article_title {
+            font-size: 12px; }
+    .index_2_blogs .index-blog {
+      margin-top: 25px;
+      padding-left: 0;
+      padding-right: 0; }
+      .index_2_blogs .index-blog .blogs {
+        position: relative;
+        width: 100%;
+        height: 330px; }
+        .index_2_blogs .index-blog .blogs .article {
+          grid-template-columns: 120px 1fr;
+          grid-template-rows: 18px 3fr 18px;
+          grid-column-gap: 10px;
+          width: 100%;
+          height: 90px;
+          margin-bottom: 15px; }
+          .index_2_blogs .index-blog .blogs .article .article_title {
+            overflow: hidden; }
+            .index_2_blogs .index-blog .blogs .article .article_title a {
+              font-size: 12px;
+              display: -webkit-box;
+              display: block\0;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              white-space: normal;
+              -webkit-line-clamp: 1;
+              -webkit-box-orient: vertical; }
+          .index_2_blogs .index-blog .blogs .article .article_content {
+            overflow: hidden; }
+            .index_2_blogs .index-blog .blogs .article .article_content a {
+              font-size: 12px;
+              display: -webkit-box;
+              display: block\0;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              white-space: normal;
+              -webkit-line-clamp: 2;
+              -webkit-box-orient: vertical; }
+          .index_2_blogs .index-blog .blogs .article .article_info {
+            font-size: 12px; } }

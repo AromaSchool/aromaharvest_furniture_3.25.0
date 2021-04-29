@@ -1,0 +1,13 @@
+{% include 'breadcrumb', url: "home/page" %}
+
+<div id="page">
+  <!-- page content start -->
+  <div class="container">
+    <div id="ckeditor" class="page_content">
+      <span class="ckeditor">
+        {{ page.content }}
+      </span>
+    </div>
+  </div>
+  <!-- page content end -->
+</div>

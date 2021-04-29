@@ -1,0 +1,132 @@
+{% include 'breadcrumb', url: "home/contact" %}
+
+<div id="contact" class="login_related">
+  <!-- contact_password container start -->
+  <div class="container">
+    {% if settings.show_google_map %}
+    <div class="row">
+      <div class="col">
+        <h1 class="title mt-3 mb-4 section-heading">聯絡我們</h1>
+      </div>
+    </div>
+    {% endif %}
+    <div class="row contact_content">
+      <div class="col d-flex flex-column justify-content-between pr-5">
+        <div class="row">
+          <div class="col">
+            <h5 class="title mt-3 mb-4 section-heading">客服資訊</h5>
+            <ul class="contact_list">
+              {% if settings.display_contact_address %}
+              <li>
+                <span>公司地址：{{ settings.contact_address }}</span>
+              </li>
+              {% endif %}
+              {% if settings.display_phone %}
+              <li>
+                  <span>公司電話：{{ settings.phone_number }}</span>
+              </li>
+              {% endif %}
+              {% if settings.display_office_time %}
+                <li>
+                  <span>客服時間： {{ settings.shop_office_time }} </span>
+                </li>
+              {% endif %}
+            </ul>
+          </div>
+        </div>
+        {% if settings.show_google_map %}
+        <div class="w-100"><hr></div>
+        <div class="row">
+          <div class="col">
+            <h5 class="title mt-3 mb-4 section-heading">公司位置</h5>
+            <div id="map-wrapper" class="map-wrap">
+              <div class="map-responsive">
+                  {{ settings.show_google_map_iframe }}
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endif %}
+      </div>
+      <div class="col d-flex flex-column justify-content-between pl-5">
+        <h5 class="title mt-3 mb-4 section-heading">聯絡表單</h5>
+        {% form 'contact' %}
+          {% if form.errors %}
+          <div class="form-row">
+            <div class="alert alert-danger w-100" role="alert">
+              {{ form.errors | default_errors }}
+            </div>
+          </div>
+          {% endif %}
+          <div class="form-row">
+            <div class="col mb-4">
+              <label for="name">姓名</label>
+              <input type="text" class="form-control" id="name" name="contact[name]" placeholder="請輸入您的姓名" required>
+              <div class="valid-feedback">
+              </div>
+              <div class="invalid-feedback">
+                姓名必填哦！
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col mb-4">
+              <label for="email">電子郵件</label>
+              <input type="email" class="form-control" id="email" name="contact[email]" placeholder="請輸入您的E-MAIL" required>
+              <input type="email" class="form-control" id="repeat-email" name="content[email]" placeholder="請輸入您的E-MAIL">
+              <div class="valid-feedback">
+              </div>
+              <div class="invalid-feedback">
+                這不是有效的email
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col mb-4">
+              <label for="phone">聯絡電話</label>
+              <input type="text" class="form-control" id="phone" name="contact[phone]" placeholder="請填寫聯絡電話" required>
+              <div class="valid-feedback">
+              </div>
+              <div class="invalid-feedback">
+                電話必填哦！
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col mb-4">
+              <label for="subject">問題類型</label>
+              <div>
+                <select class="form-control" name="contact[title]">
+                  {% for category in shop.message_categories %}
+                  <option>{{category}}</option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col mb-4">
+              <label for="message">訊息內容</label>
+              <textarea type="text" class="form-control" id="message" name="contact[body]" rows="5" placeholder="請輸入您的訊息..." required></textarea>
+              <div class="valid-feedback">
+              </div>
+              <div class="invalid-feedback">
+                訊息必填哦！
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col mb-0">
+              <button class="btn w-100 mb-1 submit" type="submit">送出</button>
+            </div>
+          </div>
+        {% endform %}
+      </div>
+    </div>
+  <!-- contact_password container start -->
+  </div>
+</div>
+
+{{ 'js/contact.js'  | asset_url | script_tag }}
+{{ 'css/beta_theme/contact.css' | asset_url | stylesheet_tag }}
+{{ 'css/beta_theme/login_related.css' | asset_url | stylesheet_tag }}

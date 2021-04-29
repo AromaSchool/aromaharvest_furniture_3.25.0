@@ -1,0 +1,36 @@
+<div class="index">
+
+  <!-- 產品跑馬燈 -->
+  {% include '_main_slider_custom' %}
+
+  <div class="container">
+    <!-- 首頁兩格廣告區塊-->
+    {% include '_index_2_blocks', block_name: 'index_2_blocks' %}
+
+    <!-- 首頁商品列1 -->
+    {% include '_index_products_custom', product_group: 'index_products_1' %}
+
+    <!-- 首頁五格廣告區塊 -->
+    {% include '_index_5_blocks', block_name: 'index_5_blocks'%}
+
+    <!-- 商品跑馬燈 -->
+    {% include '_swiper_products_custom', session_title:"index", product_group: 'index_swiper_products'%}
+
+    <!-- 首頁部落格 -->
+    {% include '_index_2_blogs', block_name: 'index_2_blogs' %}
+  </div>
+
+  <div class="container-fluid">
+    <!-- index_6_blocks -->
+    {% include '_index_6_blocks', block_name: 'index_6_blocks' %}
+
+    <!-- web service -->
+    {% include '_index_services', block_name: 'index_services' %}
+  </div>
+
+  <!-- 加入購物車 -->
+  {% if shop.cart_enabled %}
+    {% include 'new_addcart_modal' %}
+    {{ 'js/new_cart.js' | asset_url | script_tag }}
+  {% endif %}
+</div>

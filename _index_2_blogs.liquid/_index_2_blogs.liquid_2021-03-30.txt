@@ -1,0 +1,75 @@
+{% assign is_displayed = block_name | append: '_display' %}
+{% if settings[is_displayed] %}
+  {{ 'css/index_2_blogs.css' | asset_url | stylesheet_tag }}
+  {% assign block_news_title = block_name | append: '_news_title' %}
+  {% assign block_blog_title = block_name | append: '_blog_title' %}
+
+  {% assign block_news_image = 'img/' | append: block_name | append: '_news_image.jpg' %}
+  {% assign block_news_link = block_name | append: '_news_button_link' %}
+  {% assign block_news_button_display = block_name | append: '_news_button_display' %}
+  {% assign block_news_button_title = block_name | append: '_news_button_title'%}
+
+  {% assign block_blog_selected = block_name | append: '_blog_selected' %}
+  {% assign block_blog_selected = settings[block_blog_selected] %}
+
+  {% assign block_blog_limit = block_name | append: '_blog_limit' %}
+
+  <section id="{{block_name}}" class="index_2_blogs">
+    <div class="container">
+      <div class="row relative">
+        <div class="index-news col-12 col-lg-6 ">
+          <div class="section_title">
+            <h2>{{ settings[block_news_title] }}</h2>
+          </div>
+          <div class="blogs">
+            <img class="img-lazy" data-src="{{ block_news_image | asset_url }}">
+            {% if settings[block_news_button_display] %}
+            <div class="btn-link">
+              <a href="{{ settings[block_news_link] }}">{{ settings[block_news_button_title] }}</a>
+            </div>
+            {% endif %}
+          </div>
+        </div>
+        <div class="index-blog col-12 col-lg-6">
+          <div class="section_title">
+            <h2>{{ settings[block_blog_title] }}</h2>
+          </div>
+          <div class="blogs">
+            <!-- blogs_all content start -->
+            {% if blogs[block_blog_selected].articles.size > 0 %}
+              <div class="col-12">
+                <div class="blog_articles row">
+                {% for article in blogs[block_blog_selected].articles | limit: settings[block_blog_limit] %}
+                <div class="col-12">
+                  <div class="article">
+                    <div class="article_image">
+                      <a class="bg-lazy" href="{{ article.url }}" title="{{ article.title }}" data-bg="url('{{ article.cover_image['500x500'] }}')"></a>
+                    </div>
+                    <div class="article_title">
+                      <a href="{{ article.url }}" title="{{ article.title }}">
+                        {{ article.title | strip_html | limited_string: 20  }}
+                      </a>
+                    </div>
+                    <div class="article_content">
+                      <a href="{{ article.url }}">
+                        {{ article.content | strip_html | limited_string: 30 }}
+                      </a>
+                    </div>
+                    <div class="article_info">
+                      <div class="article_readmore">
+                        <a href="{{ article.url }}">繼續閱讀...</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                {% endfor %}
+                </div>
+              </div>
+            {% endif %}
+            <!-- blogs_all content end -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endif %}
