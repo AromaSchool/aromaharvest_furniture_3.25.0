@@ -191,6 +191,13 @@ h5.section-heading {
     margin-left: 30px;
 }
 
+.pd_section_title.light_yellow{
+    display: unset;
+    font-size: 22px;
+    color: #3a3a3a;
+    background: linear-gradient(#fff 60%, #f3e096 0%) !important;
+    margin-left: 0;
+}
 .pd_section_title i {
     margin-right: 5px;
 }
@@ -380,6 +387,10 @@ h5.section-heading {
     .pd_use_box {
         flex-wrap: wrap;
         margin: 20px 0;
+    }
+
+    .pre_order_block .pd_use_box.blend{
+        margin-bottom: 0;
     }
 
     .pd_use_box .use_title {
